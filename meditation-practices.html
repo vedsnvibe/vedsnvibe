@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meditation Practices - VEDS & Vibe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <style>
+        /* ============================================================
+                   REUSED COLOR PALETTE & VARIABLES
+                   ============================================================ */
+        :root {
+            --gold: #C9A84C;
+            --gold-light: #E8D5A3;
+            --gold-dark: #A8893A;
+            --gold-glow: rgba(201, 168, 76, 0.15);
+            --charcoal: #1A1714;
+            --warm-dark: #2C241E;
+            --text-light: #F5F0E8;
+            --text-muted: #B8AD9E;
+            --font-primary: 'Inter', sans-serif;
+            --font-display: 'Playfair Display', serif;
+            --glass-bg: rgba(26, 23, 20, 0.6);
+            --glass-border: rgba(201, 168, 76, 0.08);
+            --radius: 16px;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--charcoal);
+            color: var(--text-light);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============================================================
+                   UTILITY
+                   ============================================================ */
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.2rem;
+        }
+        .section-title .gold {
+            color: var(--gold);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            line-height: 1.8;
+            text-align: center;
+            margin: 0 auto 2rem auto;
+        }
+
+        .gold-line {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            margin: 1.8rem auto;
+        }
+
+        /* ============================================================
+                   BUTTONS
+                   ============================================================ */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--gold);
+            color: var(--charcoal);
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 1rem 2.4rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            font-family: var(--font-primary);
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 20px rgba(201, 168, 76, 0.15);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            background: var(--gold-light);
+            box-shadow: 0 8px 32px rgba(201, 168, 76, 0.3);
+        }
+
+        /* ============================================================
+                   NAVIGATION / TOP BAR
+                   ============================================================ */
+        .top-bar {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+            background: rgba(26, 23, 20, 0.5);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .top-bar .brand {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+        .top-bar .brand .gold {
+            color: var(--gold);
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            color: var(--text-muted);
+            border: 1.5px solid rgba(201, 168, 76, 0.25);
+            padding: 0.6rem 1.6rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 1rem;
+            font-family: var(--font-primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-back:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateX(-4px);
+        }
+
+        /* ============================================================
+                   HERO SECTION (Meditation Practices)
+                   ============================================================ */
+        .hero-meditation {
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-meditation::before {
+            content: '🕉️';
+            position: absolute;
+            top: -5%;
+            right: 5%;
+            font-size: 18rem;
+            color: rgba(201, 168, 76, 0.04);
+            pointer-events: none;
+            animation: spin 60s infinite linear;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-meditation h1 {
+            font-family: var(--font-display);
+            font-size: 4.8rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .hero-meditation h1 .gold {
+            color: var(--gold);
+        }
+
+        .hero-meditation .tagline {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            max-width: 750px;
+            margin: 0 auto 2rem auto;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        /* ============================================================
+                   DETAILS SECTION
+                   ============================================================ */
+        .details {
+            padding: 80px 0;
+            background: var(--warm-dark);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .detail-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            padding: 2.8rem 2rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            transition: var(--transition);
+        }
+        .detail-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(201, 168, 76, 0.15);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+        .detail-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        .detail-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+        }
+        .detail-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* ============================================================
+                   CTA SECTION
+                   ============================================================ */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+            background: var(--charcoal);
+        }
+        .cta-section h2 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        .cta-section p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 500px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        /* ============================================================
+                   FOOTER (Simple Version)
+                   ============================================================ */
+        .footer {
+            background: #12100E;
+            padding: 40px 0;
+            border-top: 1px solid rgba(201, 168, 76, 0.05);
+            text-align: center;
+        }
+        .footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        @media (max-width: 1024px) {
+            .details-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-meditation h1 {
+                font-size: 3.6rem;
+            }
+            .section-title {
+                font-size: 2.8rem;
+            }
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            .top-bar .brand {
+                font-size: 1.4rem;
+            }
+            .btn-back {
+                padding: 0.4rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-meditation h1 {
+                font-size: 2.8rem;
+            }
+            .section-title {
+                font-size: 2.4rem;
+            }
+            .cta-section h2 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    TOP NAV BAR WITH BACK BUTTON
+    ============================================================ -->
+    <nav class="top-bar">
+        <div class="container">
+            <a href="#" class="brand">
+                <span class="gold">VEDS</span><span>&amp;</span><span class="gold">Vibe</span>
+            </a>
+            <!-- Back Button using JavaScript to go to previous page -->
+            <button class="btn-back" onclick="window.history.back()">
+                ← Back
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    HERO SECTION
+    ============================================================ -->
+    <section class="hero-meditation">
+        <div class="container">
+            <div class="section-badge" style="display:inline-block; background: rgba(201, 168, 76, 0.08); color: var(--gold); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; padding: 0.4rem 1.2rem; border-radius: 40px; border: 1px solid rgba(201, 168, 76, 0.1); margin-bottom: 1.5rem;">
+                ✦ Inner Peace
+            </div>
+            <h1>
+                Meditation <span class="gold">Practices</span>
+            </h1>
+            <p class="tagline">
+                "Cultivate inner peace with guided meditation, breathwork, and mindfulness rooted in Vedic tradition."
+            </p>
+            <div class="gold-line"></div>
+            <p style="color: var(--text-muted); max-width: 650px; margin: 0 auto;">
+                Step away from the noise of the modern world and reconnect with the deepest part of yourself. Our practices are designed to soothe the mind, awaken the spirit, and bring forth a profound sense of presence and clarity.
+            </p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    DETAILS GRID (Guided Meditation, Breathwork, Mindfulness)
+    ============================================================ -->
+    <section class="details">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2 class="section-title">Your <span class="gold">Path to Stillness</span></h2>
+                <p class="section-subtitle">Discover the three foundational practices that will guide you toward a calm, centered, and awakened life.</p>
+                <div class="gold-line"></div>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-card">
+                    <span class="icon">🧘</span>
+                    <h3>Guided Vedic Meditation</h3>
+                    <p>
+                        Experience deeply relaxing, instructor-led sessions that utilize ancient Vedic mantras and visualization techniques. Perfect for beginners and seasoned practitioners seeking inner alignment.
+                    </p>
+                </div>
+                <div class="detail-card">
+                    <span class="icon">🌬️</span>
+                    <h3>Pranayama (Breathwork)</h3>
+                    <p>
+                        Master the art of conscious breathing to unlock your life force (Prana). Learn powerful techniques to reduce stress, increase mental focus, and balance your nervous system.
+                    </p>
+                </div>
+                <div class="detail-card">
+                    <span class="icon">✨</span>
+                    <h3>Mindfulness &amp; Vedic Wisdom</h3>
+                    <p>
+                        Integrate the timeless philosophy of the Vedas into your daily life. Develop a profound, non-judgmental awareness of the present moment to find joy and peace in the simplest experiences.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    WHY US / CALL TO ACTION
+    ============================================================ -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to <span class="gold">Find Stillness</span>?</h2>
+            <p>Join our upcoming introductory workshop and experience the transformative power of meditation in a supportive environment.</p>
+            <a href="#" class="btn-primary">Explore Our Sessions →</a>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div style="margin-bottom: 0.5rem;">
+                <span style="font-family: var(--font-display); font-size: 1.5rem; color: var(--text-light);">
+                    <span class="gold" style="color: var(--gold);">VEDS</span><span>&amp;</span><span class="gold" style="color: var(--gold);">Vibe</span>
+                </span>
+            </div>
+            <p>&copy; 2026 VEDS &amp; Vibe. Tradition · Resonance · Growth.</p>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    SCRIPTS
+    ============================================================ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Meditation Practices page loaded.');
+        });
+    </script>
+
+</body>
+</html>

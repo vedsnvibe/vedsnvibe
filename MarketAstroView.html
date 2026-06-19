@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Astrological Trading Report • Nifty & Bank Nifty (Jun 2026 – Mar 2027)</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0b0e14;
+      color: #e6edf3;
+      padding: 2rem 1.5rem;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    /* ----- HEADER ----- */
+    .header {
+      background: linear-gradient(145deg, #141a24, #1e2836);
+      border-radius: 28px;
+      padding: 2.5rem 2.8rem;
+      margin-bottom: 2.8rem;
+      border: 1px solid #2e3b4b;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.8);
+      position: relative;
+      overflow: hidden;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -10%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .header h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #f6e27a, #d4af37);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.3rem;
+    }
+    .header .subtitle {
+      font-size: 1.1rem;
+      color: #b0c4d9;
+      font-weight: 400;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.8rem;
+      margin-top: 0.5rem;
+    }
+    .header .subtitle span {
+      background: #1f2a38;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      border: 1px solid #2e3b4b;
+      color: #cbdae9;
+    }
+    .research-statement {
+      margin-top: 1rem;
+      border-top: 1px solid #2a3747;
+      padding-top: 1rem;
+      font-size: 1rem;
+      color: #cbdae9;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .research-statement strong {
+      color: #f6e27a;
+    }
+
+    /* ----- SECTIONS ----- */
+    section {
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .section-title .badge {
+      background: #d4af37;
+      color: #0b0e14;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      letter-spacing: 0.5px;
+    }
+    .gold-line {
+      height: 3px;
+      width: 60px;
+      background: linear-gradient(90deg, #d4af37, transparent);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ----- CARDS / TABLES ----- */
+    .card {
+      background: #131b26;
+      border-radius: 20px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid #25303e;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+      transition: 0.2s;
+    }
+    .card:hover {
+      border-color: #3e4d60;
+    }
+
+    .card h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #f0e8d0;
+      margin-bottom: 0.3rem;
+    }
+    .card .phase-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.8rem;
+      font-size: 0.9rem;
+      color: #9bb0c9;
+      margin-bottom: 1.2rem;
+    }
+    .card .phase-meta strong {
+      color: #d4af37;
+      font-weight: 600;
+    }
+
+    .level-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin: 1rem 0 1.2rem;
+    }
+    .level-box {
+      background: #1a2533;
+      padding: 0.8rem 1.2rem;
+      border-radius: 14px;
+      border-left: 4px solid;
+    }
+    .level-box.support { border-left-color: #3b9eff; }
+    .level-box.resistance { border-left-color: #ff6b6b; }
+    .level-box .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #889bb3;
+    }
+    .level-box .value {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .action-box {
+      background: #1d2a3a;
+      padding: 0.9rem 1.4rem;
+      border-radius: 14px;
+      margin-top: 0.8rem;
+      border: 1px solid #2e4055;
+    }
+    .action-box .action-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: #a0b6d0;
+      letter-spacing: 0.5px;
+    }
+    .action-box .action-text {
+      font-weight: 600;
+      color: #e9f0f8;
+    }
+
+    .astro-reason {
+      font-size: 0.95rem;
+      color: #c2d3e8;
+      background: #0f1823;
+      padding: 0.8rem 1.2rem;
+      border-radius: 12px;
+      margin: 0.6rem 0 0.2rem;
+      border-left: 3px solid #d4af37;
+    }
+
+    /* ----- TABLES (summary) ----- */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      min-width: 800px;
+    }
+    th {
+      background: #1f2a38;
+      color: #d4af37;
+      font-weight: 600;
+      padding: 0.8rem 1rem;
+      text-align: left;
+      border-bottom: 2px solid #2e3b4b;
+    }
+    td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid #1f2a38;
+      vertical-align: middle;
+    }
+    tr:hover td {
+      background: #18212d;
+    }
+    .highlight-bull { color: #4ae0a0; font-weight: 600; }
+    .highlight-bear { color: #ff7b7b; font-weight: 600; }
+    .highlight-neutral { color: #f0c27a; }
+
+    .critical-date-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    .crit-item {
+      background: #17212e;
+      padding: 0.9rem 1.2rem;
+      border-radius: 16px;
+      border-left: 4px solid #d4af37;
+    }
+    .crit-item .date {
+      font-weight: 700;
+      color: #f6e27a;
+      font-size: 1.05rem;
+    }
+    .crit-item .event {
+      font-weight: 600;
+      margin: 0.2rem 0 0.3rem;
+    }
+    .crit-item .impact {
+      font-size: 0.85rem;
+      color: #b0c4d9;
+    }
+
+    .strategy-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 700px) {
+      .strategy-summary { grid-template-columns: 1fr; }
+      .level-grid { grid-template-columns: 1fr; }
+      .header { padding: 1.8rem; }
+      .header h1 { font-size: 1.8rem; }
+      .card { padding: 1.2rem; }
+      table { min-width: 600px; }
+    }
+
+    .footnote {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #25303e;
+      font-size: 0.9rem;
+      color: #889bb3;
+      text-align: center;
+    }
+    .footnote strong { color: #d4af37; }
+    .footnote .research-tag {
+      display: inline-block;
+      background: #1a2533;
+      padding: 0.2rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      color: #d4af37;
+      border: 1px solid #2e4055;
+      margin-bottom: 0.8rem;
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0b0e14; }
+    ::-webkit-scrollbar-thumb { background: #3e4d60; border-radius: 10px; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1>✦ Astrological Trading Report</h1>
+    <div class="subtitle">
+      <span>Nifty 50 &amp; Bank Nifty</span>
+      <span>📅 19 June 2026 – 31 March 2027</span>
+      <span>🔬 New Research: Planetary Impact on Markets</span>
+    </div>
+    <div class="research-statement">
+      <span style="font-size:1.2rem;">⚡</span> This is my new research on how planets impact the Stock Market. 
+      Core principle: <strong>Jupiter</strong> rules Nifty, <strong>Venus</strong> rules Bank Nifty.
+    </div>
+  </header>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section>
+    <div class="section-title">
+      📋 Executive Summary
+      <span class="badge">Key Takeaway</span>
+    </div>
+    <div class="gold-line"></div>
+    <div class="card">
+      <p style="font-size: 1.05rem; margin-bottom: 0.8rem;">
+        This research applies <strong>financial astrology</strong> to forecast market turning points. 
+        The framework adds <em>Time</em> as the third dimension, alongside Price and Volume.
+      </p>
+      <ul style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 1.2rem 2rem;">
+        <li style="background: #1a2533; padding: 0.4rem 1rem; border-radius: 40px;">🔮 <strong>Nifty</strong> ruled by <span style="color:#f6e27a;">Jupiter</span></li>
+        <li style="background: #1a2533; padding: 0.4rem 1rem; border-radius: 40px;">💎 <strong>Bank Nifty</strong> ruled by <span style="color:#f6e27a;">Venus</span></li>
+        <li style="background: #1a2533; padding: 0.4rem 1rem; border-radius: 40px;">🌞 Jupiter exalted in Cancer (June–Oct 2026) → Bullish</li>
+        <li style="background: #1a2533; padding: 0.4rem 1rem; border-radius: 40px;">🔄 Jupiter retrograde (Dec 2026–Jan 2027) → Correction</li>
+        <li style="background: #1a2533; padding: 0.4rem 1rem; border-radius: 40px;">📈 Jupiter re-enters Cancer (25 Jan 2027) → Major Buying Opportunity</li>
+      </ul>
+      <div style="margin-top: 1rem; background: #0f1823; padding: 0.8rem 1.2rem; border-radius: 14px; border-left: 4px solid #d4af37;">
+        <strong>Key message:</strong> Accumulate on dips during exalted Jupiter (Jun–Oct 2026), reduce exposure during retrogrades, and prepare for a strong recovery from late January 2027.
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY ASTROLOGICAL EVENTS with ACTION COLUMN -->
+  <section>
+    <div class="section-title">🌌 Key Astrological Events (2026–2027)</div>
+    <div class="gold-line"></div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Event</th>
+            <th>Significance</th>
+            <th>Suggested Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>19 Jun – 13 Jul 2026</td>
+            <td>Clean Pushya (pre‑combustion)</td>
+            <td>Jupiter exalted, strongest expansionary energy</td>
+            <td style="color:#4ae0a0; font-weight:600;">Aggressive Buying on dips</td>
+          </tr>
+          <tr>
+            <td>30 Jun 2026</td>
+            <td>Full Moon</td>
+            <td>Resistance levels; emotional climax</td>
+            <td style="color:#f0c27a; font-weight:600;">Book profits at resistance</td>
+          </tr>
+          <tr>
+            <td>14 Jul – 12 Aug 2026</td>
+            <td>Jupiter Combust</td>
+            <td>Jupiter weakened; reduced clarity</td>
+            <td style="color:#f0c27a; font-weight:600;">Reduce exposure (60%), avoid bets</td>
+          </tr>
+          <tr>
+            <td>26 Jul 2026</td>
+            <td>Saturn Retrograde Shadow</td>
+            <td>Volatility begins</td>
+            <td style="color:#f0c27a; font-weight:600;">Hedge positions, trail stop-loss</td>
+          </tr>
+          <tr>
+            <td>12 Aug 2026</td>
+            <td><strong>Total Solar Eclipse (Leo)</strong></td>
+            <td>Major turning point; extreme caution</td>
+            <td style="color:#ff7b7b; font-weight:600;">Exit longs if key support breaks</td>
+          </tr>
+          <tr>
+            <td>13–19 Aug 2026</td>
+            <td>Clean Pushya (post‑combustion)</td>
+            <td>Jupiter’s energy returns; accumulation</td>
+            <td style="color:#4ae0a0; font-weight:600;">Accumulate if support holds</td>
+          </tr>
+          <tr>
+            <td>27–28 Aug 2026</td>
+            <td>Partial Lunar Eclipse (Pisces)</td>
+            <td>Emotional climax; reversal risk</td>
+            <td style="color:#f0c27a; font-weight:600;">Book profits, no fresh longs</td>
+          </tr>
+          <tr>
+            <td>19 Aug – 31 Oct 2026</td>
+            <td>Ashlesha Nakshatra (Mercury-ruled)</td>
+            <td>Analytical sectors (IT) favour; banking underperforms</td>
+            <td style="color:#f0c27a; font-weight:600;">Rotate to IT, underweight banks</td>
+          </tr>
+          <tr>
+            <td>31 Oct 2026</td>
+            <td><strong>Jupiter enters Leo</strong></td>
+            <td>Leaves exaltation; significant shift, correction likely</td>
+            <td style="color:#ff7b7b; font-weight:600;">Reduce longs, defensive mode</td>
+          </tr>
+          <tr>
+            <td>10 Dec 2026</td>
+            <td>Saturn Retrograde Peak</td>
+            <td>Maximum volatility</td>
+            <td style="color:#ff7b7b; font-weight:600;">Max hedging, avoid new positions</td>
+          </tr>
+          <tr>
+            <td>13 Dec 2026</td>
+            <td><strong>Jupiter turns Retrograde</strong></td>
+            <td>Reversal energy; trend change</td>
+            <td style="color:#ff7b7b; font-weight:600;">Exit longs, consider shorts</td>
+          </tr>
+          <tr>
+            <td>25 Jan 2027</td>
+            <td><strong>Jupiter re‑enters Cancer</strong></td>
+            <td>Major buying opportunity; support zone forms</td>
+            <td style="color:#4ae0a0; font-weight:600;">Aggressive buying at support</td>
+          </tr>
+          <tr>
+            <td>6 Feb 2027</td>
+            <td>Annular Solar Eclipse</td>
+            <td>Market turbulence</td>
+            <td style="color:#f0c27a; font-weight:600;">Partial profit, wait for clarity</td>
+          </tr>
+          <tr>
+            <td>14 Mar 2027</td>
+            <td><strong>Saturn Direct</strong></td>
+            <td>Stability returns; bullish</td>
+            <td style="color:#4ae0a0; font-weight:600;">Increase longs, ride bullish trend</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- NIFTY PHASES -->
+  <section>
+    <div class="section-title">📈 Nifty 50 – Date-Wise Forecast</div>
+    <div class="gold-line"></div>
+
+    <!-- Phase 1 -->
+    <div class="card">
+      <h3>Phase 1: 19 Jun – 13 Jul 2026 · Pre‑Combustion Pushya</h3>
+      <div class="phase-meta"><strong>Energy:</strong> Jupiter exalted, strongest bullish window</div>
+      <div class="level-grid">
+        <div class="level-box support"><div class="label">Support</div><div class="value">24,000 – 23,850</div></div>
+        <div class="level-box resistance"><div class="label">Resistance</div><div class="value">24,700 – 25,200</div></div>
+      </div>
+      <div class="astro-reason">✨ Jupiter in Pushya Nakshatra (Saturn as star lord) – auspicious for long‑term accumulation.</div>
+      <div class="action-box"><span class="action-label">Suggested Action</span><div class="action-text">✔ Aggressive Buy on Dips. Accumulate longs at 24,000–24,100, target 25,000+. Stop‑loss 23,850.</div></div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="card">
+      <h3>Phase 2: 14 Jul – 12 Aug 2026 · Jupiter Combust</h3>
+      <div class="phase-meta"><strong>Energy:</strong> Jupiter weakened, reduced clarity</div>
+      <div class="level-grid">
+        <div class="level-box support"><div class="label">Support</div><div class="value">24,500 → 24,000</div></div>
+        <div class="level-box resistance"><div class="label">Resistance</div><div class="value">25,200 → 25,000</div></div>
+      </div>
+      <div class="astro-reason">☀️ Jupiter within 11° of Sun – power dims. Saturn enters retrograde shadow (26 Jul) adding volatility.</div>
+      <div class="action-box"><span class="action-label">Suggested Action</span><div class="action-text">⚠️ Reduce exposure to 60%. Avoid aggressive bets. Watch for break below 24,300 – exit longs.</div></div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="card">
+      <h3>Phase 3: 12–19 Aug 2026 · Total Solar Eclipse & Post‑Combustion</h3>
+      <div class="phase-meta"><strong>Energy:</strong> Major turning point</div>
+      <div class="level-grid">
+        <div class="level-box support"><div class="label">Critical Support</div><div class="value">23,800</div></div>
+        <div class="level-box resistance"><div class="label">Critical Resistance</div><div class="value">25,200 → 25,500</div></div>
+      </div>
+      <div class="astro-reason">🌑 Total Solar Eclipse in Leo – new eclipse series begins. If Nifty holds above 24,200, bullish signal.</div>
+      <div class="action-box"><span class="action-label">Suggested Action</span><div class="action-text">🚨 Extreme caution on 12 Aug. If breaks 24,000, consider shorts; if holds, buy on dips post‑eclipse.</div></div>
+    </div>
+
+    <!-- Phase 4 -->
+    <div class="card">
+      <h3>Phase 4: 19 Aug – 31 Oct 2026 · Ashlesha Nakshatra</h3>
+      <div class="phase-meta"><strong>Energy:</strong> Mercury‑ruled, analytical focus</div>
+      <div class="level-grid">
+        <div class="level-box support"><div class="label">Support</div><div class="value">24,500 → 25,500</div></div>
+        <div class="level-box resistance"><div class="label">Resistance</div><div class="value">25,500 → 26,200</div></div>
+      </div>
+      <div class="astro-reason">🧠 Mercury as star lord – IT, legal, communication sectors shine. Banking underperforms.</div>
+      <div class="action-box"><span class="action-label">Suggested Action</span><div class="action-text">📊 Rotate to IT/analytical stocks. Hold Nifty longs with target 26,000. Book profits at 25,800 near lunar eclipse (27‑28 Aug).</div></div>
+    </div>
+
+    <!-- Phase 5 -->
+    <div class="card">
+      <h3>Phase 5: 31 Oct – 13 Dec 2026 · Jupiter in Leo</h3>
+      <div class="phase-meta"><strong>Energy:</strong> Jupiter leaves exaltation – significant downgrade</div>
+      <div class="level-grid">
+        <div class="level-box support"><div class="label">Support</div><div class="value">24,500 → 23,000</div></div>
+        <div class="level-box resistance"><div class="label">Resistance</div><div class="value">25,500 → 24,500</div></div>
+      </div>
+      <div class="astro-reason">🦁 Jupiter in Leo (Sun‑ruled) brings overconfidence; Saturn retrograde peaks (10 Dec) increases volatility.</div>
+      <div class="action-box"><span class="action-label">Suggested Action</span><div class="action-text">⬇️ Reduce longs to 30%. Consider hedging. Expect correction to 23,000–24,000.</div></div>
+    </div>
+
+    <!-- Phase 6 -->
+    <div class="card">
+      <h3>Phase 6: 13 Dec 2026 – 25 Jan 2027 · Jupiter Retrograde</h3>
+      <div class="phase-meta"><strong>Energy:</strong> Reversal, confusion, sharp correction</div>
+      <div class="level-grid">
+        <div class="level-box support"><div class="label">Support</div><div class="value">23,500 → 22,500</div></div>
+        <div class="level-box resistance"><div class="label">Resistance</div><div class="value">24,500 → 23,800</div></div>
+      </div>
+      <div class="astro-reason">🔄 Jupiter retrograde in Leo – trend reversal. Market likely to correct toward 22,500–23,000.</div>
+      <div class="action-box"><span class="action-label">Suggested Action</span><div class="action-text">📉 Exit most longs. Consider shorts if Nifty breaks 24,000. Watch for bottom near 22,500–23,000.</div></div>
+    </div>
+
+    <!-- Phase 7 -->
+    <div class="card">
+      <h3>Phase 7: 25 Jan – 31 Mar 2027 · Jupiter Re‑enters Cancer</h3>
+      <div class="phase-meta"><strong>Energy:</strong> Return to exaltation – major bullish recovery</div>
+      <div class="level-grid">
+        <div class="level-box support"><div class="label">Support</div><div class="value">22,800 → 25,000</div></div>
+        <div class="level-box resistance"><div class="label">Resistance</div><div class="value">24,500 → 26,500</div></div>
+      </div>
+      <div class="astro-reason">🌟 Jupiter re‑enters Cancer (retrograde) – forms strong Demand Hub. Saturn turns direct (14 Mar) adding stability.</div>
+      <div class="action-box"><span class="action-label">Suggested Action</span><div class="action-text">🚀 Aggressive buying opportunity at 22,800–23,200. Target 26,000–26,500 by March end. Hold longs.</div></div>
+    </div>
+  </section>
+
+  <!-- BANK NIFTY PHASES -->
+  <section>
+    <div class="section-title">🏦 Bank Nifty – Date-Wise Forecast</div>
+    <div class="gold-line"></div>
+
+    <div class="card">
+      <h3>Phase 1: 19 Jun – 12 Aug 2026</h3>
+      <div class="phase-meta"><strong>Energy:</strong> Jupiter supports Venus; banking rallies</div>
+      <div class="level-grid">
+        <div class="level-box support"><div class="label">Support</div><div class="value">57,500 → 57,000</div></div>
+        <div class="level-box resistance"><div class="label">Resistance</div><div class="value">59,000 → 60,000</div></div>
+      </div>
+      <div class="astro-reason">💫 Jupiter’s benefic aspect aids Venus. Peak at Full Moon (30 Jun) resistance 59,500.</div>
+      <div class="action-box"><span class="action-label">Suggested Action</span><div class="action-text">📈 Hold longs; book profits near 59,000–59,500. Buy dips at 58,000 for target 60,000.</div></div>
+    </div>
+
+    <div class="card">
+      <h3>Phase 2: 12–19 Aug 2026 · Solar Eclipse</h3>
+      <div class="phase-meta"><strong>Energy:</strong> Extreme caution – eclipses hit Venus‑ruled index</div>
+      <div class="level-grid">
+        <div class="level-box support"><div class="label">Critical Support</div><div class="value">56,000</div></div>
+        <div class="level-box resistance"><div class="label">Critical Resistance</div><div class="value">59,000</div></div>
+      </div>
+      <div class="astro-reason">🌑 Total Solar Eclipse – high volatility; if Bank Nifty breaks 57,000, exit all longs.</div>
+      <div class="action-box"><span class="action-label">Suggested Action</span><div class="action-text">⛔ Maximum caution. Book profits before 12 Aug. Re‑enter only if holds above 57,000.</div></div>
+    </div>
+
+    <div class="card">
+      <h3>Phase 3: 19 Aug – 31 Oct 2026 · Ashlesha & Mercury Energy</h3>
+      <div class="phase-meta"><strong>Energy:</strong> Banking underperforms; IT favoured</div>
+      <div class="level-grid">
+        <div class="level-box support"><div class="label">Support</div><div class="value">57,000 → 56,000</div></div>
+        <div class="level-box resistance"><div class="label">Resistance</div><div class="value">59,000 → 58,500</div></div>
+      </div>
+      <div class="astro-reason">🧠 Mercury‑ruled Ashlesha – banking (Venus) not in spotlight. Consolidation/correction likely.</div>
+      <div class="action-box"><span class="action-label">Suggested Action</span><div class="action-text">📉 Avoid fresh banking longs. Book profits near 58,500. Focus on IT/analytical sectors.</div></div>
+    </div>
+
+    <div class="card">
+      <h3>Phase 4: 31 Oct – 25 Jan 2027 · Jupiter Leaves, Retrograde</h3>
+      <div class="phase-meta"><strong>Energy:</strong> Banking loses major support; sharp correction</div>
+      <div class="level-grid">
+        <div class="level-box support"><div class="label">Support</div><div class="value">55,000 → 52,000</div></div>
+        <div class="level-box resistance"><div class="label">Resistance</div><div class="value">57,500 → 54,500</div></div>
+      </div>
+      <div class="astro-reason">⬇️ Jupiter leaves Cancer, turns retrograde – banking sentiment weakens. Saturn retrograde peaks (Dec).</div>
+      <div class="action-box"><span class="action-label">Suggested Action</span><div class="action-text">📉 Stay away from banking. Consider shorts on rallies. Wait for bottom near 52,000–53,000.</div></div>
+    </div>
+
+    <div class="card">
+      <h3>Phase 5: 25 Jan – 31 Mar 2027 · Jupiter Re‑enters Cancer</h3>
+      <div class="phase-meta"><strong>Energy:</strong> Strong recovery; banking outperforms</div>
+      <div class="level-grid">
+        <div class="level-box support"><div class="label">Support</div><div class="value">52,500 → 57,000</div></div>
+        <div class="level-box resistance"><div class="label">Resistance</div><div class="value">56,000 → 60,000</div></div>
+      </div>
+      <div class="astro-reason">🌟 Jupiter’s exaltation supports Venus. Saturn direct (14 Mar) adds stability. Major buying zone.</div>
+      <div class="action-box"><span class="action-label">Suggested Action</span><div class="action-text">🚀 Aggressive buying at 52,500–53,500. Target 59,000–60,000 by March end. Hold longs.</div></div>
+    </div>
+  </section>
+
+  <!-- SUMMARY TABLES -->
+  <section>
+    <div class="section-title">📊 Summary of Key Levels</div>
+    <div class="gold-line"></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Period</th><th>Nifty Support</th><th>Nifty Resistance</th><th>Bank Nifty Support</th><th>Bank Nifty Resistance</th></tr></thead>
+        <tbody>
+          <tr><td>Jun–Jul 2026</td><td>24,000</td><td>25,200</td><td>57,500</td><td>60,000</td></tr>
+          <tr><td>Aug 2026</td><td>23,800</td><td>25,800</td><td>56,000</td><td>59,500</td></tr>
+          <tr><td>Sep–Oct 2026</td><td>24,500</td><td>26,200</td><td>56,000</td><td>59,000</td></tr>
+          <tr><td>Nov–Dec 2026</td><td>23,000</td><td>25,500</td><td>53,000</td><td>57,500</td></tr>
+          <tr><td>Jan 2027</td><td>22,500</td><td>24,500</td><td>52,000</td><td>55,500</td></tr>
+          <tr><td>Feb 2027</td><td>23,000</td><td>25,500</td><td>53,500</td><td>58,000</td></tr>
+          <tr><td>Mar 2027</td><td>24,500</td><td>26,500</td><td>55,000</td><td>60,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CRITICAL DATES -->
+  <section>
+    <div class="section-title">🗓️ Critical Dates & Actions</div>
+    <div class="gold-line"></div>
+    <div class="critical-date-grid">
+      <div class="crit-item"><div class="date">30 Jun 2026</div><div class="event">Full Moon</div><div class="impact">Nifty resistance 24,800; Bank Nifty 59,500 – book profits</div></div>
+      <div class="crit-item"><div class="date">14 Jul – 12 Aug 2026</div><div class="event">Jupiter Combust</div><div class="impact">Reduced clarity; avoid aggressive longs</div></div>
+      <div class="crit-item"><div class="date">12 Aug 2026</div><div class="event">Total Solar Eclipse</div><div class="impact">Major turning point; extreme caution</div></div>
+      <div class="crit-item"><div class="date">27–28 Aug 2026</div><div class="event">Partial Lunar Eclipse</div><div class="impact">Emotional climax; book profits</div></div>
+      <div class="crit-item"><div class="date">31 Oct 2026</div><div class="event">Jupiter enters Leo</div><div class="impact">Significant shift; expect correction</div></div>
+      <div class="crit-item"><div class="date">10 Dec 2026</div><div class="event">Saturn Retrograde Peak</div><div class="impact">Maximum volatility; reduce exposure</div></div>
+      <div class="crit-item"><div class="date">13 Dec 2026</div><div class="event">Jupiter Retrograde</div><div class="impact">Reversal energy; trend change</div></div>
+      <div class="crit-item"><div class="date">25 Jan 2027</div><div class="event">Jupiter re‑enters Cancer</div><div class="impact">Major buying opportunity</div></div>
+      <div class="crit-item"><div class="date">6 Feb 2027</div><div class="event">Annular Solar Eclipse</div><div class="impact">Market turbulence; partial profit</div></div>
+      <div class="crit-item"><div class="date">14 Mar 2027</div><div class="event">Saturn Direct</div><div class="impact">Stability returns; bullish trend</div></div>
+    </div>
+  </section>
+
+  <!-- STRATEGY SUMMARY -->
+  <section>
+    <div class="section-title">🧭 Recommended Trading Strategy Summary</div>
+    <div class="gold-line"></div>
+    <div class="strategy-summary">
+      <div class="card" style="margin-bottom:0;">
+        <h3 style="color:#4ae0a0;">Phase 1: Jun–Jul 2026</h3>
+        <p><strong>Bullish</strong> (Nifty) / Moderate (Bank Nifty)</p>
+        <p>Accumulate Nifty longs on dips. Banking: selective buying.<br>
+        <span style="color:#f6e27a;">Nifty target: 25,000–25,200</span> • <span style="color:#f6e27a;">Bank Nifty: 59,000–60,000</span></p>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h3 style="color:#f0c27a;">Phase 2: Aug 2026</h3>
+        <p><strong>Cautious</strong> (both)</p>
+        <p>Reduce exposure before 12 Aug eclipse. Book profits.<br>
+        <span style="color:#f6e27a;">Nifty: 25,500–25,800</span> • <span style="color:#f6e27a;">Bank Nifty: 58,500–59,500</span></p>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h3 style="color:#f0c27a;">Phase 3: Sep–Oct 2026</h3>
+        <p><strong>Selective</strong> (Nifty) / Underweight (Bank Nifty)</p>
+        <p>Focus on IT/analytical sectors. Avoid aggressive banking longs.<br>
+        <span style="color:#f6e27a;">Nifty: 26,000–26,200</span> • <span style="color:#f6e27a;">Bank Nifty: 58,000–59,000</span></p>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h3 style="color:#ff7b7b;">Phase 4: Nov–Dec 2026</h3>
+        <p><strong>Defensive</strong> (both)</p>
+        <p>Reduce longs, consider hedging. Avoid banking.<br>
+        <span style="color:#f6e27a;">Nifty: 24,500–25,500</span> • <span style="color:#f6e27a;">Bank Nifty: 55,000–57,500</span></p>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h3 style="color:#4ae0a0;">Phase 5: Jan 2027</h3>
+        <p><strong>Bottom Fishing</strong> (both)</p>
+        <p>Wait for Jupiter re‑entry (25 Jan). Accumulate at bottom.<br>
+        <span style="color:#f6e27a;">Nifty buy zone: 22,500–23,000</span> • <span style="color:#f6e27a;">Bank Nifty: 52,000–53,000</span></p>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h3 style="color:#4ae0a0;">Phase 6: Feb–Mar 2027</h3>
+        <p><strong>Aggressive Bullish</strong> (both)</p>
+        <p>Accumulate aggressively. Ride the recovery trend.<br>
+        <span style="color:#f6e27a;">Nifty: 25,500–26,500</span> • <span style="color:#f6e27a;">Bank Nifty: 58,000–60,000</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footnote">
+    <div class="research-tag">🔬 Original Research</div>
+    <strong>✦ Final Astrological Takeaway ✦</strong><br>
+    Align your trades with planetary cycles – watch <strong>Jupiter</strong> for Nifty and <strong>Venus</strong> for Bank Nifty.<br>
+    2026 is for accumulation, not speculation. Use every dip to build quality positions, especially in banking and PSU sectors, and prepare for a strong recovery in early 2027.<br>
+    <span style="color:#5a6f86; font-size:0.8rem; display:inline-block; margin-top:0.8rem;">
+      This report is part of my ongoing research on astrological influences on financial markets. • For educational purposes only.
+    </span>
+  </div>
+
+</div>
+</body>
+</html>
