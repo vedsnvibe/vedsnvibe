@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VEDS & Vibe • </title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <style>
+        /* ============================================================
+                   COLOR PALETTE & VARIABLES
+                   ============================================================ */
+        :root {
+            --gold: #C9A84C;
+            --gold-light: #E8D5A3;
+            --gold-dark: #A8893A;
+            --gold-glow: rgba(201, 168, 76, 0.15);
+            --charcoal: #1A1714;
+            --warm-dark: #2C241E;
+            --text-light: #F5F0E8;
+            --text-muted: #B8AD9E;
+            --font-primary: 'Inter', sans-serif;
+            --font-display: 'Playfair Display', serif;
+            --glass-bg: rgba(26, 23, 20, 0.6);
+            --glass-border: rgba(201, 168, 76, 0.08);
+            --radius: 16px;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--charcoal);
+            color: var(--text-light);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============================================================
+                   SCROLLBAR
+                   ============================================================ */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--charcoal);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 10px;
+        }
+
+        /* ============================================================
+                   UTILITY
+                   ============================================================ */
+        .section-badge {
+            display: inline-block;
+            background: rgba(201, 168, 76, 0.08);
+            color: var(--gold);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid rgba(201, 168, 76, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 3.6rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.2rem;
+        }
+        .section-title .gold {
+            color: var(--gold);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            line-height: 1.8;
+            text-align: center; /* Perfectly centered subtitle */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gold-line {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            margin: 1.8rem auto; /* Centered by default */
+        }
+
+        /* ============================================================
+                   BUTTONS
+                   ============================================================ */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--gold);
+            color: var(--charcoal);
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 1rem 2.4rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            font-family: var(--font-primary);
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 20px rgba(201, 168, 76, 0.15);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            background: var(--gold-light);
+            box-shadow: 0 8px 32px rgba(201, 168, 76, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: transparent;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 1rem 2.4rem;
+            border: 1.5px solid rgba(201, 168, 76, 0.25);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            font-family: var(--font-primary);
+        }
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            background: rgba(201, 168, 76, 0.05);
+            transform: translateY(-3px);
+        }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--gold);
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .btn-ghost:hover {
+            color: var(--gold-light);
+            gap: 1.2rem;
+        }
+
+        /* ============================================================
+                   NAVIGATION
+                   ============================================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.2rem 0;
+            transition: var(--transition);
+            background: transparent;
+        }
+        .navbar.scrolled {
+            background: rgba(26, 23, 20, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.05);
+            padding: 0.6rem 0;
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* ----- LOGO: Brand name on top, tagline below ----- */
+        .navbar .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-decoration: none;
+            color: var(--text-light);
+            font-family: var(--font-display);
+            line-height: 1;
+            max-width: 280px; /* Adjust to match the expanded tagline width */
+        }
+        .navbar .logo .brand-name {
+            font-size: 2.4rem; 
+            font-weight: 700;
+            display: flex;
+            align-items: baseline;
+            gap: 0.1rem;
+            line-height: 1.1;
+        }
+        .navbar .logo .brand-name .gold {
+            color: var(--gold);
+        }
+        .navbar .logo .brand-name .amp {
+            color: var(--text-light);
+            font-size: 1.8rem;
+            margin: 0 0.05rem;
+        }
+        .navbar .logo .tagline {
+            font-family: var(--font-primary);
+            font-size: 0.65rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            line-height: 1.3;
+            margin-top: 0.2rem;
+            display: block;
+            width: 100%;
+            text-align: left; /* Clean left-align without justification hacks */
+            letter-spacing: 0.8px;
+        }
+
+        /* --- UPDATED MENU BAR --- */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.4rem;
+            list-style: none;
+            /* Full-width line spanning from the first link to the last link */
+            border-bottom: 2px solid rgba(201, 168, 76, 0.15);
+            padding-bottom: 0.8rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 1.1rem; /* Increased from 0.9rem */
+            font-weight: 500;
+            transition: var(--transition);
+            letter-spacing: 0.3px;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -0.8rem; /* Aligned perfectly with the bottom border */
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: var(--transition);
+        }
+        .nav-links a:hover {
+            color: var(--text-light);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a.active {
+            color: var(--gold);
+        }
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--gold);
+            color: var(--charcoal) !important;
+            padding: 0.4rem 1.4rem;
+            border-radius: 50px;
+            font-size: 1.1rem; /* Increased to match menu size */
+            font-weight: 600 !important;
+        }
+        .nav-cta::after {
+            display: none !important;
+        }
+        .nav-cta:hover {
+            background: var(--gold-light) !important;
+            color: var(--charcoal) !important;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .hamburger span {
+            display: block;
+            width: 28px;
+            height: 2px;
+            background: var(--text-light);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ============================================================
+                   HERO SECTION
+                   ============================================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 120px 0 80px 0;
+            background: var(--charcoal);
+            overflow: hidden;
+        }
+
+        /* Floating Orbs */
+        .hero .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .hero .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(201, 168, 76, 0.08);
+            top: -15%;
+            right: -10%;
+            animation: floatOrb 12s infinite alternate ease-in-out;
+        }
+        .hero .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(201, 168, 76, 0.04);
+            bottom: -15%;
+            left: -10%;
+            animation: floatOrb 16s infinite alternate-reverse ease-in-out;
+        }
+        @keyframes floatOrb {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(40px, 30px) scale(1.1);
+            }
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            text-align: left; /* Left alignment on desktop */
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-display);
+            font-size: 4.8rem;
+            font-weight: 700;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+        }
+        .hero-content h1 .gold {
+            color: var(--gold);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            line-height: 1.9;
+            margin-bottom: 2.8rem;
+            text-align: left;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================================
+           ANIMATED ANNOUNCEMENT PILL - CELESTIAL SUN, MOON & MARS ORBIT
+           ============================================================ */
+        .hero-announcement {
+            display: inline-flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(201, 168, 76, 0.15);
+            padding: 0.6rem 1.8rem 0.6rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 2.5rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            /* Breathing pulse glow animation */
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+        
+        /* Background Celestial System styling */
+        .hero-announcement .bg-celestial {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0; /* Behind text */
+            border-radius: inherit;
+            opacity: 0.5; 
+            transform: scale(1.05); /* Slight scale to avoid edge clipping */
+            overflow: hidden;
+        }
+
+        /* Ensure text and label are above the graph */
+        .hero-announcement .label,
+        .hero-announcement .text,
+        .hero-announcement .arrow {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Pause animation on hover */
+        .hero-announcement:hover {
+            animation-play-state: paused;
+            border-color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(201, 168, 76, 0.1);
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(201, 168, 76, 0.1);
+                border-color: rgba(201, 168, 76, 0.15);
+            }
+            50% {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), 0 0 25px 5px rgba(201, 168, 76, 0.15);
+                border-color: rgba(201, 168, 76, 0.4);
+            }
+            100% {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(201, 168, 76, 0.1);
+                border-color: rgba(201, 168, 76, 0.15);
+            }
+        }
+
+        .hero-announcement .label {
+            background: var(--gold);
+            color: var(--charcoal);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+        }
+        .hero-announcement .text {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        .hero-announcement .text .highlight {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        .hero-announcement .arrow {
+            color: var(--gold);
+            font-size: 1.4rem;
+            transition: var(--transition);
+            line-height: 1;
+            /* Soft bounce animation */
+            animation: bounceArrow 2s infinite ease-in-out;
+        }
+        .hero-announcement:hover .arrow {
+            animation-play-state: paused;
+            transform: translateX(6px);
+        }
+
+        @keyframes bounceArrow {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(5px);
+            }
+        }
+
+        /* Hero Image (Logo) */
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-image .logo-display {
+            width: 100%;
+            max-width: 440px;
+            aspect-ratio: 1/1;
+            background: radial-gradient(ellipse at 30% 40%, rgba(201, 168, 76, 0.06), transparent 70%);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: 1px solid rgba(201, 168, 76, 0.06);
+            padding: 2rem;
+            position: relative;
+        }
+        .hero-image .logo-display::before {
+            content: '✦';
+            position: absolute;
+            top: 10%;
+            right: 15%;
+            font-size: 2.5rem;
+            color: rgba(201, 168, 76, 0.08);
+            animation: twinkle 4s infinite alternate;
+        }
+        .hero-image .logo-display::after {
+            content: '✦';
+            position: absolute;
+            bottom: 10%;
+            left: 15%;
+            font-size: 2rem;
+            color: rgba(201, 168, 76, 0.06);
+            animation: twinkle 6s infinite alternate-reverse;
+        }
+        @keyframes twinkle {
+            0% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+        .hero-image .logo-display .brand {
+            font-family: var(--font-display);
+            font-size: 4.2rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+        .hero-image .logo-display .brand .gold {
+            color: var(--gold);
+        }
+        .hero-image .logo-display .brand .dark {
+            color: var(--text-light);
+        }
+        .hero-image .logo-display .divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 1.2rem 0;
+        }
+        .hero-image .logo-display .tagline {
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+        .hero-image .logo-display .ornament {
+            font-size: 0.8rem;
+            color: var(--gold);
+            letter-spacing: 8px;
+            margin-top: 0.6rem;
+        }
+
+        /* ============================================================
+                   SERVICES SECTION
+                   ============================================================ */
+        .services {
+            background: var(--warm-dark);
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .services .ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(201, 168, 76, 0.04);
+            pointer-events: none;
+        }
+        .services .ring-1 {
+            width: 600px;
+            height: 600px;
+            top: -200px;
+            right: -100px;
+        }
+        .services .ring-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -100px;
+            left: -100px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            padding: 2.8rem 2rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(201, 168, 76, 0.15);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+        .service-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        .service-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+        }
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Featured Financial Astrology Card */
+        .service-card.featured {
+            background: linear-gradient(145deg, rgba(201, 168, 76, 0.08), var(--glass-bg));
+            border-color: rgba(201, 168, 76, 0.2);
+            box-shadow: 0 0 60px rgba(201, 168, 76, 0.02);
+        }
+        .service-card.featured .icon {
+            animation: floatIcon 4s infinite ease-in-out;
+        }
+        @keyframes floatIcon {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+        .service-card .featured-tag {
+            display: inline-block;
+            background: rgba(201, 168, 76, 0.15);
+            color: var(--gold);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            margin-top: 1.2rem;
+        }
+
+        /* ============================================================
+                   FINANCIAL ASTROLOGY FEATURE SECTION
+                   ============================================================ */
+        .fa-feature {
+            padding: 120px 0;
+            background: var(--charcoal);
+            position: relative;
+            overflow: hidden;
+        }
+        .fa-feature::before {
+            content: '✦';
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            font-size: 16rem;
+            color: rgba(201, 168, 76, 0.02);
+            pointer-events: none;
+            font-family: var(--font-display);
+            animation: spin 60s infinite linear;
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .fa-feature::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201, 168, 76, 0.03), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .fa-feature .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .fa-feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .fa-feature-left {
+            text-align: left;
+        }
+        .fa-feature-left .fa-number {
+            font-family: var(--font-display);
+            font-size: 5rem;
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(201, 168, 76, 0.2);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .fa-feature-left h2 {
+            font-family: var(--font-display);
+            font-size: 3.8rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+        .fa-feature-left h2 .gold {
+            color: var(--gold);
+        }
+        .fa-feature-left .fa-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 1.8rem;
+            font-weight: 400;
+        }
+        .fa-feature-left p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.9;
+            max-width: 480px;
+            margin-bottom: 2.8rem;
+            text-align: left;
+        }
+        .fa-feature-left .btn-group {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        /* Visual: Stylized Stock Chart */
+        .chart-container {
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(201, 168, 76, 0.08);
+            max-width: 480px;
+        }
+        .chart-container svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        /* Benefits Grid (Right Side) */
+        .fa-benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+        }
+        .fa-benefit-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            padding: 2.2rem 1.8rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+            text-align: left;
+        }
+        .fa-benefit-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(201, 168, 76, 0.15);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+        .fa-benefit-card .benefit-icon {
+            font-size: 2.4rem;
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+        .fa-benefit-card h4 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 0.4rem;
+        }
+        .fa-benefit-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+        .fa-benefit-card .accent-line {
+            width: 30px;
+            height: 2px;
+            background: var(--gold);
+            margin-top: 1.2rem;
+            transition: var(--transition);
+        }
+        .fa-benefit-card:hover .accent-line {
+            width: 50px;
+        }
+
+        /* ============================================================
+                   COLLECTION / SHOP
+                   ============================================================ */
+        .collection {
+            background: var(--charcoal);
+            padding: 120px 0;
+            position: relative;
+        }
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .collection-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            border-radius: var(--radius);
+            padding: 2.8rem 2rem;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            transition: var(--transition);
+        }
+        .collection-item:hover {
+            border-color: rgba(201, 168, 76, 0.15);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+        .collection-item .icon {
+            font-size: 3.4rem;
+            margin-bottom: 1.2rem;
+            display: block;
+        }
+        .collection-item h4 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 0.4rem;
+        }
+        .collection-item .price {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 1.2rem;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+        }
+        .collection-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0.8rem 0 0.8rem 0;
+        }
+        .collection-item .btn-small {
+            display: inline-block;
+            padding: 0.5rem 1.8rem;
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 40px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .collection-item .btn-small:hover {
+            background: var(--gold);
+            color: var(--charcoal);
+            border-color: var(--gold);
+        }
+
+        /* ============================================================
+                   TESTIMONIALS
+                   ============================================================ */
+        .testimonials {
+            background: var(--warm-dark);
+            padding: 120px 0;
+            position: relative;
+        }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .testimonial-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            padding: 2.4rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+            position: relative;
+        }
+        .testimonial-card::before {
+            content: '"';
+            font-family: var(--font-display);
+            font-size: 4rem;
+            color: rgba(201, 168, 76, 0.1);
+            position: absolute;
+            top: -0.5rem;
+            right: 1.5rem;
+            line-height: 1;
+        }
+        .testimonial-card:hover {
+            border-color: rgba(201, 168, 76, 0.1);
+        }
+        .testimonial-card .stars {
+            color: var(--gold);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+        .testimonial-card blockquote {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.4rem;
+        }
+        .testimonial-card .author {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .testimonial-card .author .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, var(--gold-dark), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--charcoal);
+        }
+        .testimonial-card .author .name {
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+        .testimonial-card .author .role {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ============================================================
+                   WEBINAR
+                   ============================================================ */
+        .webinar {
+            background: var(--charcoal);
+            padding: 120px 0;
+        }
+        .webinar-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .webinar-info {
+            text-align: left;
+        }
+        .webinar-info h2 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+        }
+        .webinar-info h2 .gold {
+            color: var(--gold);
+        }
+        .webinar-info p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        .webinar-info .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem 2.5rem;
+        }
+        .webinar-info .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+        .webinar-info .meta-item .value {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .calendar {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            border-radius: var(--radius);
+            padding: 2.4rem;
+            border: 1px solid var(--glass-border);
+        }
+        .calendar .month {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        .calendar .month .nav button {
+            background: none;
+            border: 1px solid rgba(201, 168, 76, 0.1);
+            color: var(--text-muted);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        .calendar .month .nav button:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .calendar .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 0.8rem;
+            text-align: center;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .calendar .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        .calendar .days .day {
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            transition: var(--transition);
+            background: transparent;
+        }
+        .calendar .days .day.active {
+            background: var(--gold);
+            color: var(--charcoal);
+            font-weight: 600;
+        }
+        .calendar .days .day.event {
+            color: var(--gold);
+            font-weight: 600;
+            position: relative;
+        }
+        .calendar .days .day.event::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--gold);
+        }
+        .calendar .days .day.other-month {
+            opacity: 0.2;
+        }
+        .calendar .days .day:not(.other-month):hover {
+            background: rgba(201, 168, 76, 0.05);
+        }
+
+        /* ============================================================
+                   FOOTER
+                   ============================================================ */
+        .footer {
+            background: #12100E;
+            padding: 70px 0 30px 0;
+            border-top: 1px solid rgba(201, 168, 76, 0.05);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        .footer-brand {
+            text-align: left;
+        }
+        .footer-brand .logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 0.8rem;
+        }
+        .footer-brand .logo .gold {
+            color: var(--gold);
+        }
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            max-width: 280px;
+        }
+        .footer-brand .social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.2rem;
+        }
+        .footer-brand .social a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 1.4rem;
+            transition: var(--transition);
+        }
+        .footer-brand .social a:hover {
+            color: var(--gold);
+        }
+        .footer-col h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            margin-bottom: 1.2rem;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 0.6rem;
+        }
+        .footer-col ul a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .footer-col ul a:hover {
+            color: var(--gold);
+        }
+        .footer-col.contact p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .footer-col.contact p strong {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(201, 168, 76, 0.05);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-bottom p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .footer-bottom .legal {
+            display: flex;
+            gap: 1.8rem;
+        }
+        .footer-bottom .legal a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+        .footer-bottom .legal a:hover {
+            color: var(--gold);
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        @media (max-width: 1024px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-content, 
+            .hero-content p {
+                text-align: center;
+            }
+            .hero-content p {
+                margin: 0 auto 2rem auto;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .hero-announcement {
+                justify-content: center;
+            }
+            .fa-feature-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            .fa-feature-left,
+            .fa-feature-left p {
+                text-align: center;
+            }
+            .fa-feature-left p {
+                margin: 0 auto 2rem auto;
+            }
+            .fa-feature-left .btn-group {
+                justify-content: center;
+            }
+            .fa-benefits-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .fa-benefit-card {
+                text-align: center;
+            }
+            .fa-benefit-card .accent-line {
+                margin: 1rem auto 0 auto;
+            }
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .collection-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .webinar-wrapper {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            .webinar-info {
+                text-align: center;
+            }
+            .webinar-info .meta {
+                justify-content: center;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+            .chart-container {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .navbar .logo .brand-name {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: var(--warm-dark);
+                flex-direction: column;
+                padding: 100px 2rem 2rem 2rem;
+                gap: 1.8rem;
+                transition: var(--transition);
+                border-left: 1px solid rgba(201, 168, 76, 0.05);
+                /* Remove the full-width border for mobile menu */
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            .nav-links.open {
+                right: 0;
+            }
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar .logo {
+                max-width: 200px;
+            }
+            .navbar .logo .brand-name {
+                font-size: 1.8rem;
+            }
+            .navbar .logo .brand-name .amp {
+                font-size: 1.4rem;
+            }
+            .navbar .logo .tagline {
+                font-size: 0.55rem;
+                letter-spacing: 0.8px;
+            }
+
+            .section-title {
+                font-size: 2.8rem;
+            }
+            .hero-content h1 {
+                font-size: 3.6rem;
+            }
+            .fa-feature-left h2 {
+                font-size: 3rem;
+            }
+            .services-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .collection-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            .fa-benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-bottom .legal {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar .logo .brand-name {
+                font-size: 1.6rem;
+            }
+            .navbar .logo .brand-name .amp {
+                font-size: 1.2rem;
+            }
+            .navbar .logo .tagline {
+                font-size: 0.5rem;
+                letter-spacing: 0.5px;
+            }
+            .navbar .logo {
+                max-width: 160px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            .hero-image .logo-display .brand {
+                font-size: 3rem;
+            }
+            .hero-image .logo-display {
+                max-width: 260px;
+                padding: 1.5rem;
+            }
+            .section-title {
+                font-size: 2.4rem;
+            }
+            .fa-feature-left h2 {
+                font-size: 2.4rem;
+            }
+            .btn-primary,
+            .btn-secondary {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.9rem;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-announcement {
+                border-radius: 20px;
+                padding: 0.5rem 1rem;
+            }
+            .hero-announcement .text {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    NAVIGATION
+    ============================================================ -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="#" class="logo">
+                <span class="brand-name">
+                    <span class="gold">VEDS</span><span class="amp">&amp;</span><span class="gold">Vibe</span>
+                </span>
+                <span class="tagline">Tradition · Resonance · Growth</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#fa-feature">Financial Astrology</a></li>
+                <li><a href="#collection">Collection</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#footer" class="nav-cta">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    HERO
+    ============================================================ -->
+    <section class="hero" id="home">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+
+        <div class="container">
+            <div class="hero-content">
+                
+                <!-- Updated Announcement with orbiting Sun, Moon, and Mars -->
+                <a href="#fa-feature" class="hero-announcement">
+                    
+                    <!-- Background SVG: Celestial Bodies (Sun, Moon, Mars) Orbiting -->
+                    <svg class="bg-celestial" viewBox="0 0 300 80" preserveAspectRatio="xMidYMid slice">
+                        <defs>
+                            <!-- Sun Glow Filter -->
+                            <filter id="sunGlow" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="3" result="blur" />
+                                <feMerge>
+                                    <feMergeNode in="blur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                            <!-- Mars Glow Filter -->
+                            <filter id="marsGlow" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="1.5" result="blur" />
+                                <feMerge>
+                                    <feMergeNode in="blur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                            <!-- Moon Glow Filter -->
+                            <filter id="moonGlow" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="2" result="blur" />
+                                <feMerge>
+                                    <feMergeNode in="blur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                            
+                            <!-- Subtle Star Background Pattern -->
+                            <radialGradient id="starGlow" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#FDE047" stop-opacity="0.8" />
+                                <stop offset="100%" stop-color="#FDE047" stop-opacity="0" />
+                            </radialGradient>
+                        </defs>
+
+                        <!-- Subtle background stars -->
+                        <circle cx="20" cy="15" r="1" fill="#fff" opacity="0.3"><animate attributeName="opacity" values="0.1;0.5;0.1" dur="3s" repeatCount="indefinite" /></circle>
+                        <circle cx="180" cy="10" r="0.8" fill="#fff" opacity="0.4"><animate attributeName="opacity" values="0.2;0.6;0.2" dur="4s" repeatCount="indefinite" /></circle>
+                        <circle cx="260" cy="20" r="1.2" fill="#fff" opacity="0.2"><animate attributeName="opacity" values="0.1;0.4;0.1" dur="5s" repeatCount="indefinite" /></circle>
+                        <circle cx="120" cy="70" r="0.5" fill="#fff" opacity="0.5"><animate attributeName="opacity" values="0.3;0.7;0.3" dur="2.5s" repeatCount="indefinite" /></circle>
+                        <circle cx="280" cy="65" r="1" fill="#fff" opacity="0.3"><animate attributeName="opacity" values="0.1;0.5;0.1" dur="3.5s" repeatCount="indefinite" /></circle>
+
+                        <!-- 1. THE SUN (Left side, pulsing with rotating rays) -->
+                        <g transform="translate(45, 40)">
+                            <!-- Ambient glow -->
+                            <circle r="15" fill="rgba(253, 224, 71, 0.15)">
+                                <animate attributeName="r" values="15;19;15" dur="4s" repeatCount="indefinite" />
+                            </circle>
+                            <!-- Core Sun -->
+                            <circle r="10" fill="#FDE047" filter="url(#sunGlow)" opacity="0.9">
+                                <animate attributeName="opacity" values="0.7;1;0.7" dur="4s" repeatCount="indefinite" />
+                            </circle>
+                            <!-- Rotating Sun Rays -->
+                            <g opacity="0.6">
+                                <path d="M0,-12 L0,-16 M0,12 L0,16 M-12,0 L-16,0 M12,0 L16,0 M-8,-8 L-11,-11 M8,8 L11,11 M-8,8 L-11,11 M8,-8 L11,-11" stroke="#FDE047" stroke-width="1.5" stroke-linecap="round">
+                                    <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="20s" repeatCount="indefinite" />
+                                </path>
+                            </g>
+                        </g>
+
+                        <!-- 2. THE MOON (Orbiting elegantly) -->
+                        <g>
+                            <animateMotion dur="12s" repeatCount="indefinite" path="M110,40 C160,-20 260,10 210,60 C160,110 60,80 110,40" />
+                            <!-- Crescent Moon Shape -->
+                            <path d="M-5,-8 A8,8 0 1,0 5,8 A7,7 0 1,1 -5,-8" fill="#E2E8F0" filter="url(#moonGlow)" />
+                        </g>
+
+                        <!-- 3. MARS (Orbiting in the opposite direction) -->
+                        <g>
+                            <animateMotion dur="15s" repeatCount="indefinite" path="M230,20 C190,70 90,50 110,10 C130,-30 210,-10 230,20" />
+                            <!-- Mars Core -->
+                            <circle r="4.5" fill="#DC2626" filter="url(#marsGlow)" />
+                            <!-- Mars Surface Details -->
+                            <circle cx="-1.5" cy="-1.5" r="1" fill="#991B1B" opacity="0.6" />
+                            <circle cx="1.5" cy="1.5" r="0.8" fill="#991B1B" opacity="0.5" />
+                        </g>
+                    </svg>
+
+                    <span class="label">New</span>
+                    <span class="text">
+                        <span class="highlight">Planetary Impact</span> on Stock Market —
+                        Make Informed Decisions
+                    </span>
+                    <span class="arrow">→</span>
+                </a>
+
+                <h1>
+                    Start Your<br />
+                    <span class="gold">Journey Today</span>
+                </h1>
+                <p>
+                    Discover ancient wisdom for modern living — Vedic Astrology,
+                    Ayurvedic healing, and meditation practices to restore balance
+                    and bring clarity to your life.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#services" class="btn-primary">Explore Our Paths →</a>
+                    <a href="#webinar" class="btn-secondary">Join a Webinar</a>
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <div class="logo-display">
+                    <div class="brand">
+                        <span class="gold">VEDS</span><span class="dark">&amp;</span><span class="gold">Vibe</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="tagline">Tradition · Resonance · Growth</div>
+                    <div class="ornament">✦ ✦ ✦</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    SERVICES
+    ============================================================ -->
+    <section class="services" id="services">
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+
+        <div class="container">
+            <div class="section-header" style="text-align:center; margin-bottom:4rem;">
+                <span class="section-badge">✦ Our Paths</span>
+                <h2 class="section-title">Discover Our <span class="gold">Core Paths</span></h2>
+                <p class="section-subtitle">
+                    Four pillars of ancient wisdom, brought to life for your
+                    modern journey toward wellness, wealth, and harmony.
+                </p>
+                <div class="gold-line"></div>
+            </div>
+
+            <div class="services-grid">
+                
+                <!-- === LINK 1: VEDIC ASTROLOGY === -->
+                <a href="vedic-astrology.html" style="text-decoration: none; display: block;">
+                    <div class="service-card">
+                        <span class="icon">🔮</span>
+                        <h3>Vedic Astrology</h3>
+                        <p>Unlock the cosmic blueprint of your life. Deep insights into your destiny, relationships, and life path.</p>
+                    </div>
+                </a>
+
+                <!-- === LINK 2: AYURVEDIC CONSULTATIONS === -->
+                <a href="ayurvedic-consultations.html" style="text-decoration: none; display: block;">
+                    <div class="service-card">
+                        <span class="icon">🌿</span>
+                        <h3>Ayurvedic Consultations</h3>
+                        <p>Restore balance with personalized healing — herbal remedies and lifestyle guidance for your dosha.</p>
+                    </div>
+                </a>
+
+                <!-- === LINK 3: MEDITATION PRACTICES === -->
+                <a href="meditation-practices.html" style="text-decoration: none; display: block;">
+                    <div class="service-card">
+                        <span class="icon">🧘</span>
+                        <h3>Meditation Practices</h3>
+                        <p>Cultivate inner peace with guided meditation, breathwork, and mindfulness rooted in Vedic tradition.</p>
+                    </div>
+                </a>
+
+                <!-- === LINK 4: FINANCIAL ASTROLOGY (FEATURED) === -->
+                <a href="financial-astrology.html" style="text-decoration: none; display: block;">
+                    <div class="service-card featured">
+                        <span class="icon">📊</span>
+                        <h3>Financial Astrology</h3>
+                        <p>
+                            <strong>Planetary Impact on Stock Market</strong> — Discover
+                            how celestial movements influence financial markets.
+                        </p>
+                        <span class="featured-tag">✦ Featured</span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FINANCIAL ASTROLOGY FEATURE SECTION
+    ============================================================ -->
+    <section class="fa-feature" id="fa-feature">
+        <div class="container">
+            <div class="fa-feature-grid">
+                <div class="fa-feature-left">
+                    <div class="fa-number">01</div>
+                    <h2>
+                        Financial <br /><span class="gold">Astrology</span>
+                    </h2>
+                    <div class="fa-subtitle">Planetary Impact on Stock Markets</div>
+                    <p>
+                        Unlock the hidden patterns of the market through the lens of
+                        Vedic astrology. Learn how planetary transits, eclipses, and
+                        celestial alignments influence market trends — and make
+                        <strong>confident, informed investment decisions</strong>.
+                    </p>
+                    <div class="btn-group">
+                        <a href="#webinar" class="btn-primary">Join Webinar →</a>
+                        <a href="#services" class="btn-ghost">Learn More →</a>
+                    </div>
+
+                    <div class="chart-container">
+                        <svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+                            <defs>
+                                <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#E8D5A3" />
+                                    <stop offset="50%" stop-color="#C9A84C" />
+                                    <stop offset="100%" stop-color="#A8893A" />
+                                </linearGradient>
+                                <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.4" />
+                                    <stop offset="100%" stop-color="#C9A84C" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                            <line x1="0" y1="30" x2="400" y2="30" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+                            <line x1="0" y1="60" x2="400" y2="60" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+                            <line x1="0" y1="90" x2="400" y2="90" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+                            <line x1="0" y1="120" x2="400" y2="120" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+                            <polygon points="0,120 30,100 60,130 90,90 120,110 150,60 180,80 210,40 240,70 270,30 300,60 330,100 360,80 390,120 390,150 0,150"
+                            fill="url(#areaGradient)" />
+                            <polyline points="0,120 30,100 60,130 90,90 120,110 150,60 180,80 210,40 240,70 270,30 300,60 330,100 360,80 390,120"
+                            fill="none" stroke="url(#goldGradient)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                            <polyline points="0,120 30,100 60,130 90,90 120,110 150,60 180,80 210,40 240,70 270,30 300,60 330,100 360,80 390,120"
+                            fill="none" stroke="url(#goldGradient)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.15" />
+                            <circle cx="150" cy="60" r="5" fill="#1A1714" stroke="#C9A84C" stroke-width="2" />
+                            <circle cx="210" cy="40" r="5" fill="#1A1714" stroke="#C9A84C" stroke-width="2" />
+                            <circle cx="270" cy="30" r="5" fill="#1A1714" stroke="#C9A84C" stroke-width="2" />
+                            <circle cx="390" cy="120" r="5" fill="#1A1714" stroke="#C9A84C" stroke-width="2" />
+                            <circle cx="390" cy="120" r="4" fill="#C9A84C">
+                                <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite" />
+                            </circle>
+                        </svg>
+                        <div class="chart-labels">
+                            <span>Jun</span>
+                            <span>Jul</span>
+                            <span>Aug</span>
+                            <span>Sep</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fa-benefits-grid">
+                    <div class="fa-benefit-card">
+                        <span class="benefit-icon">🌌</span>
+                        <h4>Planetary Insights</h4>
+                        <p>Understand how Jupiter, Saturn, Venus &amp; Mars drive market sentiment.</p>
+                        <div class="accent-line"></div>
+                    </div>
+                    <div class="fa-benefit-card">
+                        <span class="benefit-icon">⏰</span>
+                        <h4>Market Timing</h4>
+                        <p>Identify optimal entry &amp; exit points using astrological cycles.</p>
+                        <div class="accent-line"></div>
+                    </div>
+                    <div class="fa-benefit-card">
+                        <span class="benefit-icon">🧠</span>
+                        <h4>Informed Decisions</h4>
+                        <p>Combine Vedic wisdom with technical analysis for clarity.</p>
+                        <div class="accent-line"></div>
+                    </div>
+                    <div class="fa-benefit-card">
+                        <span class="benefit-icon">🎯</span>
+                        <h4>Expert Guidance</h4>
+                        <p>Get insights from certified Vedic astrologers &amp; market analysts.</p>
+                        <div class="accent-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    COLLECTION
+    ============================================================ -->
+    <section class="collection" id="collection">
+        <div class="container">
+            <div class="section-header" style="text-align:center; margin-bottom:4rem;">
+                <span class="section-badge">✦ Shop</span>
+                <h2 class="section-title">Introducing the <span class="gold">"Minimal Modern"</span> Collection</h2>
+                <p class="section-subtitle">Curated essentials for your wellness journey — each piece crafted with intention.</p>
+                <div class="gold-line"></div>
+            </div>
+            <div class="collection-grid">
+                <div class="collection-item">
+                    <span class="icon">🕯️</span>
+                    <h4>Vedic Ritual Candle</h4>
+                    <p>Hand-poured with sandalwood &amp; rose — 40hr burn</p>
+                    <span class="price">$34</span>
+                    <a href="#" class="btn-small">Explore</a>
+                </div>
+                <div class="collection-item">
+                    <span class="icon">📿</span>
+                    <h4>Mala Beads</h4>
+                    <p>108‑bead sandalwood mala with tassel</p>
+                    <span class="price">$48</span>
+                    <a href="#" class="btn-small">Explore</a>
+                </div>
+                <div class="collection-item">
+                    <span class="icon">📖</span>
+                    <h4>Vedic Journal</h4>
+                    <p>Linen‑bound journal with daily reflection prompts</p>
+                    <span class="price">$28</span>
+                    <a href="#" class="btn-small">Explore</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    TESTIMONIALS
+    ============================================================ -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header" style="text-align:center; margin-bottom:4rem;">
+                <span class="section-badge">✦ Voices</span>
+                <h2 class="section-title">What Our <span class="gold">Community</span> Says</h2>
+                <p class="section-subtitle">Real stories from people who found clarity, healing, and purpose.</p>
+                <div class="gold-line"></div>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="stars">✦ ✦ ✦ ✦ ✦</div>
+                    <blockquote>"The Vedic Astrology reading opened my eyes to patterns I never noticed. Everything makes sense now."</blockquote>
+                    <div class="author">
+                        <div class="avatar">SM</div>
+                        <div><div class="name">Sarah Mitchell</div><div class="role">Yoga Teacher</div></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">✦ ✦ ✦ ✦ ✦</div>
+                    <blockquote>"Ayurveda transformed my health. After just one consultation, I felt more energized and balanced."</blockquote>
+                    <div class="author">
+                        <div class="avatar">RK</div>
+                        <div><div class="name">Rajesh Kumar</div><div class="role">Entrepreneur</div></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">✦ ✦ ✦ ✦ ✦</div>
+                    <blockquote>"The meditation practices have become my daily anchor. I've never felt more present and at peace."</blockquote>
+                    <div class="author">
+                        <div class="avatar">EL</div>
+                        <div><div class="name">Emma Lawson</div><div class="role">Designer</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    WEBINAR
+    ============================================================ -->
+    <section class="webinar" id="webinar">
+        <div class="container">
+            <div class="section-header" style="text-align:center; margin-bottom:4rem;">
+                <span class="section-badge">✦ Live Session</span>
+                <h2 class="section-title">Upcoming <span class="gold">Webinar</span></h2>
+                <div class="gold-line"></div>
+            </div>
+            <div class="webinar-wrapper">
+                <div class="webinar-info">
+                    <h2>Vedic Wisdom for<br /><span class="gold">Modern Life</span></h2>
+                    <p>Join us for an immersive 90‑minute session exploring how ancient Vedic principles bring clarity, resilience, and harmony to everyday life.</p>
+                    <div class="meta">
+                        <div class="meta-item"><span>📅</span> <span class="label">Date:</span> <span class="value">July 12, 2026</span></div>
+                        <div class="meta-item"><span>⏰</span> <span class="label">Time:</span> <span class="value">6:00 PM IST</span></div>
+                        <div class="meta-item"><span>📍</span> <span class="label">Where:</span> <span class="value">Online (Zoom)</span></div>
+                    </div><br />
+                    <a href="#" class="btn-primary">Reserve Your Spot →</a>
+                </div>
+                <div class="calendar">
+                    <div class="month">
+                        <span>July 2026</span>
+                        <div class="nav"><button>‹</button><button>›</button></div>
+                    </div>
+                    <div class="weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+                    <div class="days">
+                        <span class="day other-month">28</span><span class="day other-month">29</span><span class="day other-month">30</span>
+                        <span class="day">1</span><span class="day">2</span><span class="day">3</span><span class="day">4</span>
+                        <span class="day">5</span><span class="day">6</span><span class="day">7</span><span class="day">8</span><span class="day">9</span><span class="day">10</span><span class="day">11</span>
+                        <span class="day active">12</span><span class="day event">13</span><span class="day">14</span><span class="day">15</span><span class="day">16</span><span class="day">17</span><span class="day">18</span>
+                        <span class="day">19</span><span class="day">20</span><span class="day">21</span><span class="day">22</span><span class="day">23</span><span class="day">24</span><span class="day">25</span>
+                        <span class="day">26</span><span class="day">27</span><span class="day">28</span><span class="day">29</span><span class="day">30</span><span class="day">31</span><span class="day other-month">1</span>
+                    </div>
+                    <div style="margin-top:1.2rem; font-size:0.8rem; color:var(--text-muted); text-align:center;">
+                        <span style="color:var(--gold);">●</span> Webinar Day &nbsp;·&nbsp;
+                        <span style="background:var(--gold); width:10px; height:10px; display:inline-block; border-radius:4px;"></span> Today
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo"><span class="gold">VEDS</span><span>&amp;</span><span class="gold">Vibe</span></div>
+                    <p>Tradition · Resonance · Growth — guiding you toward wisdom, wellness, and harmony through Vedic astrology, Ayurveda, and meditation.</p>
+                    <div class="social">
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="YouTube">▶️</a>
+                        <a href="#" aria-label="Facebook">👍</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Home</h4>
+                    <ul><li><a href="#">Home</a></li><li><a href="#services">Services</a></li><li><a href="#collection">Consultations</a></li><li><a href="#testimonials">Resources</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>About Us</h4>
+                    <ul><li><a href="#">Vedic Astrology</a></li><li><a href="#">Ayurveda</a></li><li><a href="#">Meditation</a></li><li><a href="#">Financial Astrology</a></li><li><a href="#">Contact</a></li></ul>
+                </div>
+                <div class="footer-col contact">
+                    <h4>Contact</h4>
+                    <p>📞 <strong>+1 772 246 4000</strong></p>
+                    <p>✉️ <strong>veds@vedibee.org</strong></p>
+                    <p>🌐 <strong>www.vedibee.org</strong></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VEDS &amp; Vibe. All rights reserved.</p>
+                <div class="legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    SCRIPTS
+    ============================================================ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 60) navbar.classList.add('scrolled');
+                else navbar.classList.remove('scrolled');
+            });
+
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navLinks.classList.toggle('open');
+            });
+            navLinks.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('open');
+                });
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 80;
+                        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                    }
+                });
+            });
+
+            const sections = document.querySelectorAll('section[id]');
+            const navLinksAll = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+            window.addEventListener('scroll', function() {
+                let current = '';
+                sections.forEach(function(section) {
+                    if (window.pageYOffset >= section.offsetTop - 120) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                navLinksAll.forEach(function(link) {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+        });
+    </script>
+
+</body>
+</html>
